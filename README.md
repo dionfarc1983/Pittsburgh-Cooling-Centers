@@ -151,7 +151,7 @@ Stage 1: Data Collection          Stage 2: Distance Matrix         Stage 3: Opti
 - Downloads **TIGER/Line 2022** block-group boundary shapefiles
 - Filters to **Pittsburgh city** using OSMnx geocoding (centroid-within for block groups, point-within for sites)
 - Computes a **composite vulnerability index** (average of percentile ranks of three indicators)
-- Outputs: `data/processed/block_groups.geojson` (305 BGs), `data/processed/candidate_sites.geojson` (86 sites)
+- Outputs: `data/processed/block_groups.geojson` (305 BGs), `data/processed/candidate_sites.geojson` (82 sites)
 
 ### Stage 2: Distance Matrix (`pipeline/distance_matrix.py`)
 
