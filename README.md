@@ -14,7 +14,7 @@ This project answers: **if the city had the budget to open 5-10 new cooling cent
 
 ## Approach
 
-1. **Data Collection** - 86 candidate sites (rec centers, libraries, pools, senior centers) from WPRDC and 305 census block groups within Pittsburgh city limits, with demographics from ACS 2022
+1. **Data Collection** - 82 candidate sites (rec centers, libraries, pools, senior centers) from WPRDC and 305 census block groups within Pittsburgh city limits, with demographics from ACS 2022
 2. **Vulnerability Index** - Composite score (0-1) from percentile ranks of: % population 65+, poverty rate, % households without a vehicle
 3. **Distance Matrix** - OSMnx street-network walking distances via Dijkstra shortest paths on OpenStreetMap's pedestrian network; 15-minute walk threshold = 1,250 m
 4. **MILP Optimization** - Gurobi solver with binary facility-open and demand-assignment variables, solved under 5 objectives:
@@ -97,8 +97,8 @@ The **vulnerability-weighted** objective achieves nearly the same average distan
 │   │   └── census_acs_bg.csv        # Census ACS 2022 block group demographics
 │   ├── processed/                   # Pipeline intermediate outputs
 │   │   ├── block_groups.geojson     # 305 Pittsburgh block groups with vulnerability
-│   │   ├── candidate_sites.geojson  # 86 candidate facility locations
-│   │   ├── distance_matrix.csv      # 305 x 86 walking distance matrix (meters)
+│   │   ├── candidate_sites.geojson  # 82 candidate facility locations
+│   │   ├── distance_matrix.csv      # 305 x 82 walking distance matrix (meters)
 │   │   └── allegheny_walk_graph.graphml  # Cached OSMnx walking network
 │   └── output/                      # Optimization results
 │       └── scenario_results.csv     # All 55 scenarios (5 objectives x 11 budgets)
@@ -158,7 +158,7 @@ Stage 1: Data Collection          Stage 2: Distance Matrix         Stage 3: Opti
 - Downloads the **Allegheny County walking network** from OpenStreetMap via OSMnx (cached as `allegheny_walk_graph.graphml`)
 - Snaps block-group centroids and candidate sites to **nearest network nodes**
 - Computes **Dijkstra shortest-path distances** from each site to all block groups
-- Outputs: `data/processed/distance_matrix.csv` (305 x 86 matrix, meters)
+- Outputs: `data/processed/distance_matrix.csv` (305 x 82 matrix, meters)
 
 ### Stage 3: Optimization (`pipeline/optimization.py`)
 
@@ -299,8 +299,8 @@ Outputs to `dist/`. The `base: './'` config makes the build deployable from any 
 |---|---|---|---|
 | `census_acs_bg.csv` | raw/ | Census ACS 2022 | Block group demographics |
 | `block_groups.geojson` | processed/ | Pipeline | 305 Pittsburgh block groups with vulnerability index |
-| `candidate_sites.geojson` | processed/ | Pipeline | 86 candidate facility locations |
-| `distance_matrix.csv` | processed/ | Pipeline | 305 x 86 street-network walking distance matrix (meters) |
+| `candidate_sites.geojson` | processed/ | Pipeline | 82 candidate facility locations |
+| `distance_matrix.csv` | processed/ | Pipeline | 305 x 82 street-network walking distance matrix (meters) |
 | `allegheny_walk_graph.graphml` | processed/ | OSMnx | Cached Allegheny County walking network (~180K nodes) |
 | `scenario_results.csv` | output/ | Pipeline | All 55 scenarios: metrics + selected sites |
 
@@ -309,7 +309,7 @@ Outputs to `dist/`. The `base: './'` config makes the build deployable from any 
 | File | Description |
 |---|---|
 | `scenario_results.json` | 55 optimization results (5 objectives x 11 budgets) |
-| `candidate_sites.json` | 86 candidate sites (id, name, type, lat, lon, is_existing) |
+| `candidate_sites.json` | 82 candidate sites (id, name, type, lat, lon, is_existing) |
 | `block_groups.json` | GeoJSON with demographics for map rendering |
 | `assignments.json` | Block group to site assignments for all 55 scenarios |
 
